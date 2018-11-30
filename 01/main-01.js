@@ -36,9 +36,9 @@ window.addEventListener("load", function(event) {
           /////////////////
 
           /* The controller handles user input. */
-          var controller = new controller();
+          var controller = new Controller();
           /* The display handles window resizing, as well as the on screen canvas. */
-          var display    = new display(document.querySelector("canvas"));
+          var display    = new Display(document.querySelector("canvas"));
           /* The game will eventually hold our game logic. */
           var game       = new Game();
           /* The engine is where the above three sections can interact. */

@@ -4,6 +4,11 @@
 }
 
 html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
     align-content: center;
     align-items: space-around;
     background-color: #202830;
