@@ -25,7 +25,7 @@ const Controller = function() {
 
     };
 
-    this.handleKeyDownUp = (event) => { this.keyDownUp(event);};
+    this.handleKeyDownUp = (event) => { this.keyDownUp(event); };
 
 };
 
