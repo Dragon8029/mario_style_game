@@ -61,7 +61,7 @@ const Engine = function(time_step, update, render) {
 
     };
 
-    this.handleRun = (time_step) => { this.run(time.step); };
+    this.handleRun = (time_step) => { this.run(time_step); };
 
 };
 
