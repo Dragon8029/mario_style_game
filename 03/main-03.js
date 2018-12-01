@@ -50,10 +50,6 @@ window.addEventListener("load", function(event) {
        // INITIALIZE ///
       /////////////////
 
-      /* This is very important. The buffer canvas must be pixel for pixel the same
-      size as the world dimensions to properly scale the graphics. All the game knows
-      are player location and world dimensions. We have to tell the display to match them. */
-
       display.buffer.canvas.height = game.world.height;
       display.buffer.canvas.width = game.world.width;
 
