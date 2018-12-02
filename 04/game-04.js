@@ -112,7 +112,7 @@ Game.World.prototype = {
         top = Math.floor(object.getTop() / this.tile_size);
         right = Math.floor(object.getRight() / this.tile_size);
         value = this.collision_map[top * this.columns + right];
-        this.collider.collid(value, object, right * this.tile_size, top * this.tile_size, this.tile_size);
+        this.collider.collide(value, object, right * this.tile_size, top * this.tile_size, this.tile_size);
 
         bottom = Math.floor(object.getBottom() / this.tile_size);
         left = Math.floor(object.getLeft() / this.tile_size);
