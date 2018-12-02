@@ -20,6 +20,8 @@ Game.prototype = { constructor : Game };
 
 Game.World = function(friction = 0.9, gravity = 3) {
 
+    this.collider = new Game.World.Collider(); // Here's the new collider class.
+
     this.friction = friction;
     this.gravity  = gravity;
 
