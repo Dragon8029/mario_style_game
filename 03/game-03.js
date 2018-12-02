@@ -111,7 +111,7 @@ Game.World.Player.prototype = {
     },
 
     moveLeft:function()  { this.velocity_x -= 0.5; },
-    moveRight:function() { this.velocity_y += 0.5; },
+    moveRight:function() { this.velocity_x += 0.5; },
 
     update:function() {
 
