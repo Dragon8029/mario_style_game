@@ -100,7 +100,7 @@ Game.World.prototype = {
         at that row and column. In this case the row  is top and the column is left. Then
         we hand the information to the collider's collide function. */
         top = Math.floor(object.getTop() / this.tile_size);
-        left = Math.floor(objec.getLeft() / this.tile_size);
+        left = Math.floor(object.getLeft() / this.tile_size);
         value = this.collision_map[top * this.columns + left];
         this.collider.collide(value, object, left * this.tile_size, top * this.tile_size, this.tile_size);
 
@@ -140,7 +140,7 @@ Game.World.prototype = {
 
 };
 
-Game.World.Player = function(x, y) {
+Game.World.Collider = function(x, y) {
 
     /* This is the function routing method. Basically, you know what the tile looks like
     from its value. You know which object you want to collide with, and you know the
@@ -214,7 +214,7 @@ Game.World.Collider.prototype = {
 
     collidePlatformLeft:function(object, tile_left) {
 
-        if(object.getRight() > tile_left && objec.getOldRight() <= tile_left) {
+        if(object.getRight() > tile_left && object.getOldRight() <= tile_left) {
 
             object.setRight(tile_left - 0.01); // -0.01 is to fix a small problem with rounding
             object.velocity_x = 0;
