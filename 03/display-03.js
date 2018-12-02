@@ -70,4 +70,4 @@ Display.TileSheet = function(tile_size, columns) {
 
 };
 
-Display.TileSheet.protoype = {};
+Display.TileSheet.prototype = {};
