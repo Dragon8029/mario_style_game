@@ -249,3 +249,103 @@ Game.World.Object.Animator = function(frame_set, delay) {
     this.mode = "pause";
 };
 
+Game.World.Object.Animator.prototype = {
+
+    constructor:Game.World.Object.Animator, 
+
+    animate:function() {
+
+        switch(this.mode) {
+
+            case "loop" : this.loop(); break;
+            case "pause" : break;
+        }
+    },
+
+    changeFrameSet(frame_set, mode, delay = 10, frame_index = 0) {
+
+        if (this.frame_set === frame_set) { return; }
+
+        this.count = 0;
+        this.delay = delay;
+        this.frame_set = frame_set;
+        this.frame_index = frame_index;
+        this.frame_value = frame_set[frame_index];
+        this.mode = mode;
+    },
+
+    loop:function() {
+
+        this.count ++;
+
+        while(this.count > this.delay) {
+
+            this.count -= this.delay;
+
+            this.frame_index = (this.frame_index < this.frame_set.length - 1) ? this.frame_index + 1 : 0;
+
+            this.frame_value = this.frame_set[this.frame_index];
+        }
+    }
+};
+
+/* The player now also extends the Game.World.Object.Animator class. */
+Game.World.Object.Player = function(x, y) {
+
+    Game.World.Object.call(this, 100, 100, 7, 14);
+    Game.World.Object.Animator.call(this, Game.World.Object.Player.prototype.frame_set["idle-left"], 10);
+
+    this.jumping = true;
+    this.direction_x = -1;
+    this.velocity_x = 0;
+    this.velocity_y = 0;
+
+};
+
+Game.World.Object.Player.prototype = {
+
+    constructor:Game.World.Object.Player,
+
+    /* The values in these arrays correspond to the TileSet.Frame objects in the tile_set.
+    They are just hardcoded in here now, but when the tileset information is eventually
+    loaded from a json file, this will be allocated dynamically in some sort of loading function.*/
+    frame_sets: {
+
+        "idle-left" : [0],
+        "jump-left" : [1],
+        "move-left" : [2, 3, 4, 5],
+        "idle-right" : [6], 
+        "jump-right" : [7],
+        "move-right" : [8, 9, 10, 11]
+
+    },
+
+    jump: function() {
+
+        if(!this.jumping) {
+
+            this.jumping = true;
+            this.velocity_y -= 20;
+
+        }
+    },
+
+    moveLeft: function() {
+
+        this.direction_x = -1; // Make sure to set the player's direction.
+        this.velocity_x -= 0.55;
+    },
+
+    moveRight: function(frame_set) {
+
+        this.direction_x = 1;
+        this.velocity_x += 0.55;
+    },
+
+    updateAnimation:function() {
+
+        if(this.velocity_y < 0) {
+            
+        }
+    }
+}
