@@ -345,7 +345,85 @@ Game.World.Object.Player.prototype = {
     updateAnimation:function() {
 
         if(this.velocity_y < 0) {
+
+            if (this.direction_x < 0)this.changeFrameSet(this.frame_sets["jump-left"], "pause");
+            else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
             
+        } else if (this.direction_x < 0) {
+
+            if (this.velocity_x < -0.1) this.changeFrameSets["move-left"], "loop", 5);
+            else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
+        } else if (this.direction_x > 0) {
+
+            if(this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
+            else this.changeFrameSet(this.frame_sets["idle-right"], "pause");
         }
+
+        this.animate();
+    },
+
+    /* this used to be the update function, but now it's a little bit better. I takes
+    gravity and friction as parameters so the player class can decide what to do with
+    them. */
+
+    updatePosition:function(gravity, friction) {// changed from the update function
+
+        this.x_old = this.x;
+        this.y_old = this.y;
+        this.velocity_y += gravity;
+        this.x += this.velocity_x;
+        this.y += this.velocity_y;
+
+        this.velocity_x += friction;
+        this.velocity_y += friction;
+
     }
-}
+
+};
+
+/* Double prototype inheritance from Object and Animator. */
+Object.assign(Game.World.Object.Player.prototype, Game.World.Object.prototype);
+Object.assign(Game.World.Object.Player.prototype, Game.World.Object.Animator.prototype);
+Game.World.Object.Player.prototype.constructor = Game.World.Object.Player;
+
+/* The TileSheet class was taken from the Display class and renamed TileSet. 
+It does all the same stuff, but it doesn't have an image reference and it also 
+defines specific regions in the tile set image that correspond to the player's sprite
+animation frames. Later, this will all be set in a level loading function just in case
+we want to add functionality to add in another tile sheet graphic with a different terrain */
+Game.World.TileSet = function(columns, tile_size) {
+
+    this.columns = columns; 
+    this.tile_size = tile_size;
+
+    let f = Game.World.TileSet.Frame;
+
+    /* An array of all the frames in the tile sheet image. */
+    this.frames = [new f(115,  96, 13, 16, 0, -2), // idle-left
+        new f( 50,  96, 13, 16, 0, -2), // jump-left
+        new f(102,  96, 13, 16, 0, -2), new f(89, 96, 13, 16, 0, -2), new f(76, 96, 13, 16, 0, -2), new f(63, 96, 13, 16, 0, -2), // walk-left
+        new f(  0, 112, 13, 16, 0, -2), // idle-right
+        new f( 65, 112, 13, 16, 0, -2), // jump-right
+        new f( 13, 112, 13, 16, 0, -2), new f(26, 112, 13, 16, 0, -2), new f(39, 112, 13, 16, 0, -2), new f(52, 112, 13, 16, 0, -2) // walk-right
+       ];
+};
+
+Game.World.TileSet.prototype = { constructor:Game.World.TileSet};
+
+/* The Frame class just defines a region in a tilesheet to cut out. It's a rectangle. 
+It has an x and y offset used for drawing the cut out sprite image to the screen, 
+which allows sprites to be positioned anywher in the tile sheet image rather than 
+being forced to adhere to a grid like tile graphics. This is more natural because
+sprites often fluctuate in size and won't always fit in a 16x16 grid */
+Game.World.TileSet.Frame = function(x, y, width, height, offset_x, offset_y) {
+
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.offset_x = offset_x;
+    this.offset_y = offset_y;
+
+};
+
+Game.World.TileSet.Frame.prototype = { constructor: Game.World.TileSet.Frame };
