@@ -15,7 +15,7 @@ const Display = function(canvas) {
 
             let value = map[index];
             let source_x = (value % image_columns) * tile_size;
-            let source_y = Math.floor(value / image_coumns) * tile_size;
+            let source_y = Math.floor(value / image_columns) * tile_size;
             let destination_x = (index % map_columns) * tile_size;
             let destination_y = Math.floor(index / map_columns) * tile_size;
 
