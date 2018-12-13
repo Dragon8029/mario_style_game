@@ -21,11 +21,16 @@ const Game = function() {
 
 };
 
-Game.prototype = { constructor : Game };
+Game.prototype = { 
+    constructor : Game, 
+};
 
-Game.World = function(friction = 0.9, gravity = 3) {
+Game.World = function(friction = 0.8, gravity = 2) {
 
     this.collider = new Game.World.Collider(); 
+
+    this.friction = friction;
+    this.gravity = gravity;
 
     this.columns   = 12;
     this.rows      = 9;
@@ -72,25 +77,25 @@ Game.World.prototype = {
 
         var bottom, left, right, top, value;
 
-        top = Math.floor(object.getTop() / this.tile_size);
-        left = Math.floor(object.getLeft() / this.tile_size);
+        top = Math.floor(object.getTop() / this.tile_set.tile_size);
+        left = Math.floor(object.getLeft() / this.tile_set.tile_size);
         value = this.collision_map[top * this.columns + left];
-        this.collider.collide(value, object, left * this.tile_size, top * this.tile_size, this.tile_size);
+        this.collider.collide(value, object, left * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
 
-        top = Math.floor(object.getTop() / this.tile_size);
-        right = Math.floor(object.getRight() / this.tile_size);
+        top = Math.floor(object.getTop() / this.tile_set.tile_size);
+        right = Math.floor(object.getRight() / this.tile_set.tile_size);
         value = this.collision_map[top * this.columns + right];
-        this.collider.collide(value, object, right * this.tile_size, top * this.tile_size, this.tile_size);
+        this.collider.collide(value, object, right * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
 
-        bottom = Math.floor(object.getBottom() / this.tile_size);
-        left = Math.floor(object.getLeft() / this.tile_size);
+        bottom = Math.floor(object.getBottom() / this.tile_set.tile_size);
+        left = Math.floor(object.getLeft() / this.tile_set.tile_size);
         value = this.collision_map[bottom * this.columns + left];
-        this.collider.collide(value, object, left * this.tile_size, bottom * this.tile_size, this.tile_size);
+        this.collider.collide(value, object, left * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
 
-        bottom = Math.floor(object.getBottom() / this.tile_size);
-        right = Math.floor(object.getRight() / this.tile_size);
+        bottom = Math.floor(object.getBottom() / this.tile_set.tile_size);
+        right = Math.floor(object.getRight() / this.tile_set.tile_size);
         value = this.collision_map[bottom * this.columns + right];
-        this.collider.collide(value, object, right * this.tile_size, bottom * this.tile_size, this.tile_size);
+        this.collider.collide(value, object, right * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
 
     },
 
@@ -108,7 +113,7 @@ Game.World.prototype = {
 
 };
 
-Game.World.Collider = function(x, y) {
+Game.World.Collider = function() {
 
     this.collide = function(value, object, tile_x, tile_y, tile_size) {
 
@@ -293,7 +298,7 @@ Game.World.Object.Animator.prototype = {
 Game.World.Object.Player = function(x, y) {
 
     Game.World.Object.call(this, 100, 100, 7, 14);
-    Game.World.Object.Animator.call(this, Game.World.Object.Player.prototype.frame_set["idle-left"], 10);
+    Game.World.Object.Animator.call(this, Game.World.Object.Player.prototype.frame_sets["idle-left"], 10);
 
     this.jumping = true;
     this.direction_x = -1;
@@ -351,7 +356,7 @@ Game.World.Object.Player.prototype = {
             
         } else if (this.direction_x < 0) {
 
-            if (this.velocity_x < -0.1) this.changeFrameSets["move-left"], "loop", 5);
+            if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_Sets["move-left"], "loop", 5);
             else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
         } else if (this.direction_x > 0) {
 
