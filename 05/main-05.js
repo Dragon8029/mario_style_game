@@ -43,7 +43,7 @@ window.addEventListener("load", function(event) {
 
       var keyDownUp = function(event) {
 
-        AbortController.keyDownUp(event.type, event.keyCode);
+        controller.keyDownUp(event.type, event.keyCode);
 
       };
 
@@ -81,8 +81,8 @@ window.addEventListener("load", function(event) {
     ///////////////////////
 
     var assets_manager = new AssetsManager(); // Behold the new assets manager!
-    var controller = new controller();
-    var display = new Display(docuent.querySelector("canvas"));
+    var controller = new Controller();
+    var display = new Display(document.querySelector("canvas"));
     var game = new Game();
     var engine = new engine(1000/30, render, update);
 
