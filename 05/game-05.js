@@ -36,7 +36,7 @@ Game.World = function(friction = 0.8, gravity = 2) {
     this.rows      = 9;
     
     /* Here is were the new TileSet class is defined. */
-    this.tile_set = new Game.World.TileSet(8,16);
+    this.tile_set = new Game.World.TileSet(8, 16);
     this.player = new Game.World.Object.Player(100, 100); // The player in its new "namespace".
 
     this.map = [48,17,17,17,49,48,18,19,16,17,35,36,
@@ -405,11 +405,11 @@ Game.World.TileSet = function(columns, tile_size) {
 
     /* An array of all the frames in the tile sheet image. */
     this.frames = [new f(115,  96, 13, 16, 0, -2), // idle-left
-        new f( 50,  96, 13, 16, 0, -2), // jump-left
-        new f(102,  96, 13, 16, 0, -2), new f(89, 96, 13, 16, 0, -2), new f(76, 96, 13, 16, 0, -2), new f(63, 96, 13, 16, 0, -2), // walk-left
-        new f(  0, 112, 13, 16, 0, -2), // idle-right
-        new f( 65, 112, 13, 16, 0, -2), // jump-right
-        new f( 13, 112, 13, 16, 0, -2), new f(26, 112, 13, 16, 0, -2), new f(39, 112, 13, 16, 0, -2), new f(52, 112, 13, 16, 0, -2) // walk-right
+                   new f( 50,  96, 13, 16, 0, -2), // jump-left
+                   new f(102,  96, 13, 16, 0, -2), new f(89, 96, 13, 16, 0, -2), new f(76, 96, 13, 16, 0, -2), new f(63, 96, 13, 16, 0, -2), // walk-left
+                   new f(  0, 112, 13, 16, 0, -2), // idle-right
+                   new f( 65, 112, 13, 16, 0, -2), // jump-right
+                   new f( 13, 112, 13, 16, 0, -2), new f(26, 112, 13, 16, 0, -2), new f(39, 112, 13, 16, 0, -2), new f(52, 112, 13, 16, 0, -2) // walk-right
        ];
 };
 
