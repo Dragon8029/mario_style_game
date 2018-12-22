@@ -37,7 +37,7 @@ window.addEventListener("load", function(event){
 
     /* Requests a file and hands the callback function the contents of that file
     parsed by JSON.parse. */
-    requestJSON:function(urs, callback) {
+    requestJSON:function(url, callback) {
 
         let request = new XMLHttpRequest();
 
@@ -76,7 +76,7 @@ window.addEventListener("load", function(event){
 
   var keyDownUp = function(event) {
       
-    controller.keyDownUp(evnet.type, event.keyCode);
+    controller.keyDownUp(event.type, event.keyCode);
 
   };
 
