@@ -341,7 +341,7 @@ Game.World.Object.Player.prototype = {
         this.velocity_x -= 0.55;
     },
 
-    moveRight: function(frame_set) {
+    moveRight:function(frame_set) {
 
         this.direction_x = 1;
         this.velocity_x += 0.55;
