@@ -1,28 +1,27 @@
 /* Changes:
-    1. The update function now check on every frame for game.world.door. If a door
-       is selected, the game engine stops and the door's level is loaded. 
-    2. When the game is first initialized at the bottom of this file, game.world is
-       loaded using it's default values defined in its constructor.
-    3. The AssetsManager class has been changed to load both images and json. 
-
+  1. The update function now check on every frame for game.world.door. If a door
+     is selected, the game engine stops and the door's level is loaded.
+  2. When the game is first initialized at the bottom of this file, game.world is
+     loaded using it's default values defined in its constructor.
+  3. The AssetsManager class has been changed to load both images and json.
 */
 
-window.addEventListener("load", function(event){
+window.addEventListener("load", function(event) {
 
-    "use strict";
+  "use strict";
 
-    //// CONSTANTS ////
+  //// CONSTANTS ////
 
-    /* Each zone has a url that looks like: zoneXX.json, where XX is the current zone
-    identifier. When loading zones, I use the game.world's zone identifier with these
-    two constants to construct a url that points to the appropriate zone file. */
+  /* Each zone has a url that looks like: zoneXX.json, where XX is the current zone
+  identifier. When loading zones, I use the game.world's zone identifier with these
+  two constants to construct a url that points to the appropriate zone file. */
+  /* I updated this after I made the video. I decided to move the zone files into
+  the 06 folder because I won't be using these levels again in future parts. */
+  const ZONE_PREFIX = "06/zone";
+  const ZONE_SUFFIX = ".json";
 
-
-    const ZONE_PREFIX = "06/zone";
-    const ZONE_SUFFIX = ".json";
-
-    /////////////////
-   //// CLASSES ////
+      /////////////////
+    //// CLASSES ////
   /////////////////
 
   const AssetsManager = function() {
@@ -33,22 +32,22 @@ window.addEventListener("load", function(event){
 
   AssetsManager.prototype = {
 
-    constructor: Game.AssetsManager, 
+    constructor: Game.AssetsManager,
 
     /* Requests a file and hands the callback function the contents of that file
     parsed by JSON.parse. */
     requestJSON:function(url, callback) {
 
-        let request = new XMLHttpRequest();
+      let request = new XMLHttpRequest();
 
-        request.addEventListener("load", function(event) {
+      request.addEventListener("load", function(event) {
 
-            callback(JSON.parse(this.responseText));
+        callback(JSON.parse(this.responseText));
 
-        }, { once:true });
+      }, { once:true });
 
-        request.open("GET", url);
-        request.send();
+      request.open("GET", url);
+      request.send();
 
     },
 
@@ -56,15 +55,15 @@ window.addEventListener("load", function(event){
     the image loads, the callback function is called. */
     requestImage:function(url, callback) {
 
-        let image = new Image();
+      let image = new Image();
 
-        image.addEventListener("load", function(event) {
+      image.addEventListener("load", function(event) {
 
-            callback(image);
+        callback(image);
 
-        }, { once:true });
+      }, { once:true });
 
-        image.src = url;
+      image.src = url;
 
     },
 
@@ -75,7 +74,7 @@ window.addEventListener("load", function(event){
   ///////////////////
 
   var keyDownUp = function(event) {
-      
+
     controller.keyDownUp(event.type, event.keyCode);
 
   };
@@ -89,14 +88,14 @@ window.addEventListener("load", function(event){
 
   var render = function() {
 
-    display.drawMap (assets_manager.tile_set_image, 
-    game.world.tile_Set.columns, game.world.graphical_map, game.world.columns, game.world.tile_set.tile_size);
+    display.drawMap   (assets_manager.tile_set_image,
+    game.world.tile_set.columns, game.world.graphical_map, game.world.columns,  game.world.tile_set.tile_size);
 
     let frame = game.world.tile_set.frames[game.world.player.frame_value];
 
-    display.drawObject(assets_manager.tile_set_image, 
-    frame.x, frame.y, 
-    game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offset_x, 
+    display.drawObject(assets_manager.tile_set_image,
+    frame.x, frame.y,
+    game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offset_x,
     game.world.player.y + frame.offset_y, frame.width, frame.height);
 
     display.render();
