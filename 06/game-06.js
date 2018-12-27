@@ -126,8 +126,10 @@ Game.Collider = function() {
             case 15: if (this.collidePlatformTop    (object, tile_y            )) return;
                      if (this.collidePlatformBottom (object, tile_y + tile_size)) return;
                      if (this.collidePlatformLeft   (object, tile_x            )) return;
-                        this.collidePlatformRight  (object, tile_x + tile_size); break;
-        }
+                         this.collidePlatformRight  (object, tile_x + tile_size); break;
+      
+          }
+      
     }
 }; 
 Game.Collider.prototype = {
